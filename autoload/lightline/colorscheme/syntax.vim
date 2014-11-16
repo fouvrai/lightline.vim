@@ -12,7 +12,7 @@ function! s:hi(match, groups)
             silent exec 'hi ' . group
         redir END
 
-        let _ = matchstr(hi, a:match)
+        let _ = matchstr(hi, '\m'.a:match.'=\zs\S\+\ze')
         if strlen(_) | return _ | endif
     endfor
 
@@ -21,11 +21,11 @@ function! s:hi(match, groups)
 endfunction
 
 function! s:hifg(...)
-    return s:hi('\mguifg=\zs\S\+\ze', a:000)
+    return s:hi('guifg', a:000)
 endfunction
 
 function! s:hibg(...)
-    return s:hi('\mguibg=\zs\S\+\ze', a:000)
+    return s:hi('guibg', a:000)
 endfunction
 
 let s:base0  = s:hifg('Normal')     " gui05
@@ -51,9 +51,9 @@ let s:p.normal.left   = [ [ s:base01, s:blue   ], [ s:base0, s:base02 ] ]
 let s:p.normal.middle = [ [ s:base2,  s:base01 ]  ]
 let s:p.normal.right  = [ [ s:base01, s:base1  ], [ s:base1, s:base02 ] ]
 
-let s:p.inactive.right  = [ [ s:base02, s:base00 ], [ s:base00, s:base02 ] ]
-let s:p.inactive.middle = [ [ s:base0,  s:base02 ]  ]
-let s:p.inactive.left   = [ [ s:base0,  s:base02 ], [ s:base00, s:base03 ] ]
+let s:p.inactive.left   = [ [ s:base1,  s:base02 ], [ s:base2, s:base01 ] ]
+let s:p.inactive.middle = [ [ s:base03, s:base01 ]  ]
+let s:p.inactive.right  = [ [ s:base1,  s:base02 ], [ s:base2, s:base01 ] ]
 
 let s:p.insert.left  = [ [ s:base01, s:green   ], [ s:base0, s:base02 ] ]
 let s:p.visual.left  = [ [ s:base01, s:magenta ], [ s:base0, s:base02 ] ]
