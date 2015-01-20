@@ -391,7 +391,7 @@ function! lightline#tabline()
 endfunction
 
 function! s:tabline(range, active, onefn)
-    let l:range = ( a:range == [] ? [0] : a:range )
+  let l:range = ( a:range == [] ? [0] : a:range )
   let [l, x, y, z, u, d] = [l:range[-1], [], [], [], '...', min([max([winwidth(0) / 40, 2]), 8])]
   for i in l:range
     call add(i<a:active?(x):i==a:active?(y):z, '%'.i.'T%{lightline#one'.a:onefn.'('.i.','.(i==a:active).')}'.(i==l?'%T':''))
