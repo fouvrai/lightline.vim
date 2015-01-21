@@ -406,7 +406,7 @@ endfunction
 
 function! lightline#buffers() abort
   if tabpagenr('$') != 1 | return lightline#tabs() | endif
-  let bufnrs = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+  let bufnrs = filter(range(1, bufnr('$')), bufnr('%').'==v:val||buflisted(v:val)')
   return s:tabline(bufnrs, bufnr('%'), 'buffer')
 endfunction
 
