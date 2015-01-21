@@ -3,13 +3,13 @@
 " Version: 0.0
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/06/17 11:31:14.
+" Last Change: 2014/12/17 00:13:56.
 " =============================================================================
 
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! s:load()
+function! s:load() abort
   let rgbfile = $VIMRUNTIME . '/rgb.txt'
   let table = {}
   if filereadable(rgbfile)
@@ -22,17 +22,16 @@ endfunction
 
 let s:table = s:load()
 
-function! lightline#colortable#name_to_rgb(name)
+function! lightline#colortable#name_to_rgb(name) abort
   let name = tolower(a:name)
   return has_key(s:table, name) ? s:table[name] : []
 endfunction
 
-function! lightline#colortable#gui2cui(rgb, fallback)
+function! lightline#colortable#gui2cui(rgb, fallback) abort
   let rgb = map(matchlist(a:rgb, '#\(..\)\(..\)\(..\)')[1:3], '0 + ("0x".v:val)')
   if len(rgb) == 0
     let rgb = lightline#colortable#name_to_rgb(a:rgb)
     if len(rgb) == 0
-    throw a:rgb
       return a:fallback % 128
     endif
   endif
