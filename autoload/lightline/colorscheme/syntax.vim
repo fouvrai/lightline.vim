@@ -6,13 +6,15 @@
 " Last Change: 2014/11/07 18:55:59.
 " =============================================================================
 
+let s:source = has('gui') ? 'gui' : 'cterm'
+
 function! s:hi(match, groups)
     for group in a:groups
         redir => hi
             silent exec 'hi ' . group
         redir END
 
-        let _ = matchstr(hi, '\m'.a:match.'=\zs\S\+\ze')
+        let _ = matchstr(hi, '\m'.s:source.a:match.'=\zs\S\+\ze')
         if strlen(_) | return _ | endif
     endfor
 
@@ -21,11 +23,11 @@ function! s:hi(match, groups)
 endfunction
 
 function! s:hifg(...)
-    return s:hi('guifg', a:000)
+    return s:hi('fg', a:000)
 endfunction
 
 function! s:hibg(...)
-    return s:hi('guibg', a:000)
+    return s:hi('bg', a:000)
 endfunction
 
 let s:base0  = s:hifg('Normal')     " gui05
